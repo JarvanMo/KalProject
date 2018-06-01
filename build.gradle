@@ -33,7 +33,6 @@ ext {
 
     retrofit2Version = '2.4.0'
     androidSupportVersion = '27.1.1'
-    leakCanaryVersion = '1.5'
 
 
 
