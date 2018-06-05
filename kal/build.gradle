@@ -43,14 +43,6 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.androidSupportVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.androidSupportVersion"
 
-    api 'com.orhanobut:logger:2.2.0'
 
-    api "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
-
-    api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:converter-jackson:$rootProject.ext.retrofit2Version"
-
-    api 'pub.devrel:easypermissions:1.2.0'
 
 }
