@@ -3,16 +3,11 @@ package com.jarvanmo.kalproject
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import com.jarvanmo.kal.logD
-
-import com.jarvanmo.kal.recyclerview.QuickAdapter
+import com.jarvanmo.kal.toast
 import com.jarvanmo.kalproject.databinding.ActivityMainBinding
-import com.jarvanmo.kalproject.databinding.EmptyViewBinding
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         Logger.addLogAdapter(AndroidLogAdapter())
-        "weco".logD()
     }
 
 }
