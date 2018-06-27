@@ -12,6 +12,7 @@ import android.view.ViewGroup;
  * Copyright © 2017, cnyanglao, Co,. Ltd. All Rights Reserve
  */
 
+
 public class SupportEmptyRecyclerView extends RecyclerView {
     private View emptyView;
 
@@ -26,6 +27,7 @@ public class SupportEmptyRecyclerView extends RecyclerView {
                     hideEmptyView();
                 }
             }
+
         }
 
         public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {

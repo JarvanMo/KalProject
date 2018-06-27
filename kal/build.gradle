@@ -1,7 +1,11 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
 
 
@@ -38,10 +42,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
-    implementation "com.android.support:design:$rootProject.ext.androidSupportVersion"
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.androidSupportVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.ext.androidSupportVersion"
+    api "com.android.support:design:$rootProject.ext.androidSupportVersion"
+    api "com.android.support:appcompat-v7:$rootProject.ext.androidSupportVersion"
+    api "com.android.support:recyclerview-v7:$rootProject.ext.androidSupportVersion"
 
     api 'com.orhanobut:logger:2.2.0'
 
@@ -52,5 +57,11 @@ dependencies {
     api "com.squareup.retrofit2:converter-jackson:$rootProject.ext.retrofit2Version"
 
     api 'pub.devrel:easypermissions:1.2.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.ext.kotlin_version"
+
+    def paging_version = "2.0.0-alpha1"
+
+//    implementation "androidx.paging:paging-runtime:$paging_version"
 
 }
