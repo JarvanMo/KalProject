@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -22,28 +23,109 @@ class SimpleChooserDialog : DialogFragment() {
 
     companion object {
         @JvmStatic
-        private val extraType = "extraType"
+        private  val keyIsString = "extraType"
 
         @JvmStatic
-        fun newInstance(items: ArrayList<Parcelable>): SimpleChooserDialog {
+        private val keyData = "keyData"
+
+        @JvmStatic
+        private  val simpleChooser = "simpleChooser"
+
+        @JvmStatic
+        fun newInstanceOfParcelables(items: ArrayList<Parcelable>): SimpleChooserDialog {
 
             val args = Bundle()
-            args.putParcelableArrayList(extraType, items)
+            args.putBoolean(keyIsString, false)
+            args.putParcelableArrayList(keyData, items)
+            val fragment = SimpleChooserDialog()
+            fragment.arguments = args
+            return fragment
+        }
+
+        @JvmStatic
+        fun newInstanceOfParcelables(vararg items: Parcelable): SimpleChooserDialog {
+
+            val list:ArrayList<Parcelable>  = ArrayList()
+            items.flatMapTo(list) { arrayListOf(it)}
+
+            val args = Bundle()
+            args.putBoolean(keyIsString, false)
+            args.putParcelableArrayList(keyData, list)
             val fragment = SimpleChooserDialog()
             fragment.arguments = args
             return fragment
         }
 
 
+        @JvmStatic
+        fun newInstanceOfStrings(items: ArrayList<String>): SimpleChooserDialog {
+
+            val args = Bundle()
+            args.putBoolean(keyIsString, true)
+            args.putStringArrayList(keyData, items)
+            val fragment = SimpleChooserDialog()
+            fragment.arguments = args
+            return fragment
+        }
+
+
+        @JvmStatic
+        fun newInstanceOfStrings(vararg items: String): SimpleChooserDialog {
+
+
+            val list:ArrayList<String>  = ArrayList()
+            items.flatMapTo(list) { arrayListOf(it)}
+
+            val args = Bundle()
+            args.putBoolean(keyIsString, true)
+            args.putStringArrayList(keyData, list)
+            val fragment = SimpleChooserDialog()
+            fragment.arguments = args
+            return fragment
+        }
+
+
+        @JvmStatic
+        fun showStrings(fragmentManager: FragmentManager, vararg items: String,chooseListener: OnChooseListener):SimpleChooserDialog{
+            val dialog = SimpleChooserDialog.newInstanceOfStrings(*items)
+            dialog.setOnChooseListener(chooseListener)
+            dialog.show(fragmentManager,simpleChooser)
+            return dialog
+        }
+
+        @JvmStatic
+        fun showStrings(fragmentManager: FragmentManager,items: ArrayList<String>,chooseListener: OnChooseListener):SimpleChooserDialog{
+            val dialog = SimpleChooserDialog.newInstanceOfStrings(items)
+            dialog.setOnChooseListener(chooseListener)
+            dialog.show(fragmentManager,simpleChooser)
+            return dialog
+        }
+
+        @JvmStatic
+        fun showParcelables(fragmentManager: FragmentManager,vararg items: Parcelable,chooseListener: OnChooseListener):SimpleChooserDialog{
+            val dialog = SimpleChooserDialog.newInstanceOfParcelables(*items)
+            dialog.setOnChooseListener(chooseListener)
+            dialog.show(fragmentManager,simpleChooser)
+            return dialog
+        }
+
+        @JvmStatic
+        fun showParcelables(fragmentManager: FragmentManager, items: ArrayList<Parcelable>,chooseListener: OnChooseListener):SimpleChooserDialog{
+            val dialog = SimpleChooserDialog.newInstanceOfParcelables(items)
+            dialog.setOnChooseListener(chooseListener)
+            dialog.show(fragmentManager,simpleChooser)
+            return dialog
+        }
+
     }
 
 
-    private var listener: SimpleChooserNavigator? = null
+    private var listener: OnChooseListener? = null
 
-    var binding: DialogSimpleChooserBinding? = null
+    private var binding: DialogSimpleChooserBinding? = null
 
 
-    fun setItemClickListener(navigator: SimpleChooserNavigator) {
+    fun setOnChooseListener(navigator: OnChooseListener) {
         this.listener = navigator
     }
 
@@ -52,31 +134,45 @@ class SimpleChooserDialog : DialogFragment() {
         val builder = AlertDialog.Builder(context!!)
         binding = DialogSimpleChooserBinding.inflate(LayoutInflater.from(context))
 
-        val data: ArrayList<Parcelable> = arguments!!.getParcelableArrayList(extraType)
-        val adapter = ChooserDialogAdapter(listener)
+        val data:ArrayList<Any> = ArrayList()
+        if(arguments!!.getBoolean(keyIsString,true)){
+            arguments!!.getStringArrayList(keyData)?.mapTo(data){
+                it
+            }
+        }else{
+
+            val parcelableData= arguments!!.getParcelableArrayList<Parcelable>(keyData)
+            parcelableData.mapTo(data){
+                it
+            }
+        }
+
+
+
+        val adapter = ChooserDialogAdapter(listener,this)
         binding?.content?.adapter = adapter
         binding?.content?.layoutManager = LinearLayoutManager(context)
         binding?.content?.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        adapter.setData(data)
+        adapter.data = data
         builder.setView(binding?.root)
 
         return builder.create()
     }
 
-    private class ChooserDialogAdapter(var navigator: SimpleChooserNavigator?) : RecyclerViewAdapter<Parcelable>() {
-        override fun onBind(holder: BaseViewHolder?, position: Int, item: Parcelable?) {
+    private class ChooserDialogAdapter(var navigator: OnChooseListener?,val dialog:SimpleChooserDialog) : RecyclerViewAdapter<Any>() {
+        override fun onBind(holder: BaseViewHolder?, position: Int, item: Any?) {
             val binding = holder?.binding
             if (binding is ItemSimpleChooserBinding) {
-                binding.content.text = item.toString()
+                binding.content.text = item .toString()
                 binding.content.setOnClickListener {
                     if (item != null) {
-                        navigator?.onChoose(item)
+                        navigator?.onChoose(dialog,item)
                     }
                 }
             }
         }
 
-        override fun getItemLayout(position: Int, item: Parcelable?): Int = R.layout.item_simple_chooser
+        override fun getItemLayout(position: Int, item: Any?): Int = R.layout.item_simple_chooser
 
     }
 }
