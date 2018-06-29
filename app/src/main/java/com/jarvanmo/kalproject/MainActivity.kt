@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jarvanmo.kal.chooser.OnChooseListener
 import com.jarvanmo.kal.chooser.SimpleChooserDialog
+import com.jarvanmo.kal.toast
+import com.jarvanmo.kal.util.MToast
 import com.jarvanmo.kalproject.databinding.ActivityMainBinding
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -48,14 +50,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        MToast.init(applicationContext)
         Logger.addLogAdapter(AndroidLogAdapter())
 
         binding.button.setOnClickListener {
 
-            val a = OnChooseListener { dialogFragment, content ->  dialogFragment.dismiss()}
+            val a = OnChooseListener { dialogFragment, content ->
+                dialogFragment.dismiss()
+                content.toString().toast()
+            }
 
             SimpleChooserDialog.showStrings(supportFragmentManager, "A", "B","C", "BD",chooseListener = a)
         }
     }
+
+
 
 }

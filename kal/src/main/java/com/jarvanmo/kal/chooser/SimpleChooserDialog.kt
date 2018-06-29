@@ -125,6 +125,7 @@ class SimpleChooserDialog : DialogFragment() {
     private var binding: DialogSimpleChooserBinding? = null
 
 
+
     fun setOnChooseListener(navigator: OnChooseListener) {
         this.listener = navigator
     }
@@ -133,6 +134,7 @@ class SimpleChooserDialog : DialogFragment() {
 
         val builder = AlertDialog.Builder(context!!)
         binding = DialogSimpleChooserBinding.inflate(LayoutInflater.from(context))
+
 
         val data:ArrayList<Any> = ArrayList()
         if(arguments!!.getBoolean(keyIsString,true)){
