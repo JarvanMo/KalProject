@@ -17,15 +17,15 @@ fun View.isInvisible() = visibility == View.INVISIBLE
 
 fun View.isGoneOrInvisible() = visibility == View.INVISIBLE || visibility == View.GONE
 
-fun View.toVisible() {
+fun View.visible() {
     visibility = View.VISIBLE
 }
 
-fun View.toInvisible() {
+fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
-fun View.toGone() {
+fun View.gone() {
     visibility = View.GONE
 }
 
