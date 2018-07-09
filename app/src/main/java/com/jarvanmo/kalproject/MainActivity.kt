@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 //    quickAdapter.notifyDataSetChanged()
 //
 //
-//    empty.textView2.setOnClickListener {
+//    empty.textView2.setOnClickListener {n
 //        for (i in 0..9) {
 //            val s = i.toString() + ""
 //            quickAdapter.add(s)
