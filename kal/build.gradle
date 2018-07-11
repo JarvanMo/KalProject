@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.github.dcendents.android-maven'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
