@@ -3,7 +3,7 @@ package com.jarvanmo.kal.button;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;

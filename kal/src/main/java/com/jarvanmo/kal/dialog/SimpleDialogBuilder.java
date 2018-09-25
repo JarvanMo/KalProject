@@ -1,8 +1,8 @@
 package com.jarvanmo.kal.dialog;
 
 import android.os.Bundle;
-import android.support.annotation.StringRes;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.FragmentActivity;
 
 import com.jarvanmo.kal.util.Preconditions;
 

@@ -1,6 +1,6 @@
 package com.jarvanmo.kal.dialog;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by mo on 16-3-26.

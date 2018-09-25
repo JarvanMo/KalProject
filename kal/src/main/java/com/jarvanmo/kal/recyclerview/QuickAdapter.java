@@ -1,6 +1,6 @@
 package com.jarvanmo.kal.recyclerview;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class QuickAdapter<I> extends RecyclerViewAdapter<I> {
     private int br;

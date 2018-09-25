@@ -3,11 +3,11 @@ package com.jarvanmo.kal.chooser
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import com.jarvanmo.kal.R
 import com.jarvanmo.kal.databinding.DialogSimpleChooserBinding
@@ -86,7 +86,7 @@ class SimpleChooserDialog : DialogFragment() {
 
 
         @JvmStatic
-        fun showStrings(fragmentManager: FragmentManager, vararg items: String,chooseListener: OnChooseListener):SimpleChooserDialog{
+        fun showStrings(fragmentManager: FragmentManager, vararg items: String, chooseListener: OnChooseListener):SimpleChooserDialog{
             val dialog = SimpleChooserDialog.newInstanceOfStrings(*items)
             dialog.setOnChooseListener(chooseListener)
             dialog.show(fragmentManager,simpleChooser)
@@ -94,7 +94,7 @@ class SimpleChooserDialog : DialogFragment() {
         }
 
         @JvmStatic
-        fun showStrings(fragmentManager: FragmentManager,items: ArrayList<String>,chooseListener: OnChooseListener):SimpleChooserDialog{
+        fun showStrings(fragmentManager: FragmentManager, items: ArrayList<String>, chooseListener: OnChooseListener):SimpleChooserDialog{
             val dialog = SimpleChooserDialog.newInstanceOfStrings(items)
             dialog.setOnChooseListener(chooseListener)
             dialog.show(fragmentManager,simpleChooser)
@@ -102,7 +102,7 @@ class SimpleChooserDialog : DialogFragment() {
         }
 
         @JvmStatic
-        fun showParcelables(fragmentManager: FragmentManager,vararg items: Parcelable,chooseListener: OnChooseListener):SimpleChooserDialog{
+        fun showParcelables(fragmentManager: FragmentManager, vararg items: Parcelable, chooseListener: OnChooseListener):SimpleChooserDialog{
             val dialog = SimpleChooserDialog.newInstanceOfParcelables(*items)
             dialog.setOnChooseListener(chooseListener)
             dialog.show(fragmentManager,simpleChooser)
@@ -110,7 +110,7 @@ class SimpleChooserDialog : DialogFragment() {
         }
 
         @JvmStatic
-        fun showParcelables(fragmentManager: FragmentManager, items: ArrayList<Parcelable>,chooseListener: OnChooseListener):SimpleChooserDialog{
+        fun showParcelables(fragmentManager: FragmentManager, items: ArrayList<Parcelable>, chooseListener: OnChooseListener):SimpleChooserDialog{
             val dialog = SimpleChooserDialog.newInstanceOfParcelables(items)
             dialog.setOnChooseListener(chooseListener)
             dialog.show(fragmentManager,simpleChooser)

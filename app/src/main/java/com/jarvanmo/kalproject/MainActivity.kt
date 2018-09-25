@@ -1,8 +1,8 @@
 package com.jarvanmo.kalproject
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.jarvanmo.kal.chooser.OnChooseListener
 import com.jarvanmo.kal.chooser.SimpleChooserDialog
 import com.jarvanmo.kal.toast
