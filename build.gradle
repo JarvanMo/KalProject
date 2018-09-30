@@ -52,9 +52,9 @@ ext {
 
     glideVersion = '4.8.0'
 
-    leakcanaryVersion = '1.5.1'
+    //leakcanaryVersion = '1.5.1'
 
-    lifecycleVersion = "2.0.0-alpha1"
+    //lifecycleVersion = "2.0.0-alpha1"
 
 
 
