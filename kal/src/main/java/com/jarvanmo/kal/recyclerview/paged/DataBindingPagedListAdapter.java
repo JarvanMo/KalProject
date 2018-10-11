@@ -1,12 +1,16 @@
 package com.jarvanmo.kal.recyclerview.paged;
 
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
@@ -17,9 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * 冷风如刀，以大地为砧板，视众生为鱼肉。
  * 万里飞雪，将穹苍作烘炉，熔万物为白银。
  **/
-public class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,DataBindingPagedListAdapter.ViewHolder> {
-
-
+public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,DataBindingPagedListAdapter.ViewHolder> {
 
     private List<T> data;
 
@@ -31,17 +33,28 @@ public class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,DataBindi
         super(config);
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        if (viewType == 0) {
+            return null;
+        }
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), viewType, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return getItemLayout(position,getItem(position));
+    }
+
+    @LayoutRes
+    protected abstract int getItemLayout(int position, T item);
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

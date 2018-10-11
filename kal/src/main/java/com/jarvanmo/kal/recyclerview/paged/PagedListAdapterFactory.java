@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.DiffUtil;
  **/
 public class PagedListAdapterFactory {
 
-    public static  <D> DataBindingPagedListAdapter<D> withDiffCallback(@NonNull DiffUtil.ItemCallback<D> diffCallback){
-        return new DataBindingPagedListAdapter<>(diffCallback);
-    }
-
-    public static  <D> DataBindingPagedListAdapter<D> withDefaultDiffCallback(){
-        return new DataBindingPagedListAdapter<>(new DataBindingPagedListAdapter.DefaultItemCallback<D>());
-    }
-
-    public static  <D> DataBindingPagedListAdapter<D> withAsyncDifferConfig(@NonNull AsyncDifferConfig<D> config){
-        return new DataBindingPagedListAdapter<>(config);
-    }
+//    public static  <D> DataBindingPagedListAdapter<D> withDiffCallback(@NonNull DiffUtil.ItemCallback<D> diffCallback){
+//        return new DataBindingPagedListAdapter<>(diffCallback);
+//    }
+//
+//    public static  <D> DataBindingPagedListAdapter<D> withDefaultDiffCallback(){
+//        return new DataBindingPagedListAdapter<>(new DataBindingPagedListAdapter.DefaultItemCallback<D>());
+//    }
+//
+//    public static  <D> DataBindingPagedListAdapter<D> withAsyncDifferConfig(@NonNull AsyncDifferConfig<D> config){
+//        return new DataBindingPagedListAdapter<>(config);
+//    }
 
 }
