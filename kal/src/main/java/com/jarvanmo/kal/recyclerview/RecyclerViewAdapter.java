@@ -26,6 +26,7 @@ public abstract class RecyclerViewAdapter<I> extends RecyclerView.Adapter<Recycl
     private List<I> data = new ArrayList<>();
 
 
+    @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0) {
@@ -43,7 +44,7 @@ public abstract class RecyclerViewAdapter<I> extends RecyclerView.Adapter<Recycl
 
     @CallSuper
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         onBind(holder, position, data.get(position));
         holder.getBinding().executePendingBindings();
     }
