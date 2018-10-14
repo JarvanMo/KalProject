@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kal</string>
+    <string name="module_name">kal</string>
     <string name="default_positive_text">确定</string>
     <string name="default_negative_text">取消</string>
 </resources>
