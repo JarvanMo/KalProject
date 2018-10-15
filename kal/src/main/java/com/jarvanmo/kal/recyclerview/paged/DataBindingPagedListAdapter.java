@@ -9,6 +9,7 @@ import com.jarvanmo.kal.R;
 import com.jarvanmo.kal.databinding.ItemNetworkStateBinding;
 import com.jarvanmo.kal.util.Strings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.CallSuper;
@@ -33,7 +34,6 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
     private RetryCallback retryCallback;
     private PagingNetworkState pagingNetworkState;
 
-    private List<T> data;
 
     protected DataBindingPagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         super(diffCallback);
@@ -53,51 +53,7 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
         retryCallback = retry;
     }
 
-//    private var networkState: NetworkState? = null
 
-//
-//    override fun onBindViewHolder(
-//            holder: RecyclerView.ViewHolder,
-//            position: Int,
-//            payloads: MutableList<Any>) {
-//        if (payloads.isNotEmpty()) {
-//            val item = getItem(position)
-//            (holder as RedditPostViewHolder).updateScore(item)
-//        } else {
-//            onBindViewHolder(holder, position)
-//        }
-//    }
-//
-
-
-//
-
-//
-//    fun setNetworkState(newNetworkState: NetworkState?) {
-//        val previousState = this.networkState
-//        val hadExtraRow = hasExtraRow()
-//        this.networkState = newNetworkState
-//        val hasExtraRow = hasExtraRow()
-//        if (hadExtraRow != hasExtraRow) {
-//            if (hadExtraRow) {
-//                notifyItemRemoved(super.getItemCount())
-//            } else {
-//                notifyItemInserted(super.getItemCount())
-//            }
-//        } else if (hasExtraRow && previousState != newNetworkState) {
-//            notifyItemChanged(itemCount - 1)
-//        }
-//    }
-
-
-
-//        override fun getItemViewType(position: Int): Int {
-//        return if (hasExtraRow() && position == itemCount - 1) {
-//            R.layout.network_state_item
-//        } else {
-//            R.layout.reddit_post_item
-//        }
-//    }
 
     private boolean hasExtraRow(){
         return pagingNetworkState !=null && pagingNetworkState != PagingNetworkState.LOADED;
@@ -113,14 +69,6 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
         return new ViewHolder(binding);
     }
 
-
-    //    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        when (getItemViewType(position)) {
-//            R.layout.reddit_post_item -> (holder as RedditPostViewHolder).bind(getItem(position))
-//            R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bindTo(
-//                    networkState)
-//        }
-//    }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(getItemViewType(position) == R.layout.item_network_state){
@@ -167,6 +115,30 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
 
     @LayoutRes
     protected abstract int getItemLayout(int position, T item);
+
+//    public void replaceAll(List<T> data){
+//        if (data == null) {
+//            data = new ArrayList<>();
+//        }
+//        data.clear();
+//        addAll(data);
+//    }
+//
+//    public void addAll(List<T> dataToAppend){
+//        int oldSize= data.size();
+//        data.addAll(dataToAppend);
+//        notifyItemRangeChanged(oldSize,dataToAppend.size());
+//    }
+//
+//
+//    public void removeAt(int index){
+//        if (index < 0 || index >= data.size()) {
+//            return;
+//        }
+//
+//        notifyItemChanged(position);
+//    }
+//
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
