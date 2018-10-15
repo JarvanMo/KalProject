@@ -90,7 +90,7 @@ fun Bitmap.save(context:Context?=null,des: File? =null,compressFormat: Bitmap.Co
         }
         File(context!!.cacheDir,fileName)
     }
-    val bos = BufferedOutputStream(FileOutputStream(des))
+    val bos = BufferedOutputStream(FileOutputStream(file))
     this.compress(compressFormat, quality, bos)
     bos.flush()
     bos.close()
