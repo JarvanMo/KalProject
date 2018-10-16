@@ -11,6 +11,7 @@ import com.jarvanmo.kal.util.Strings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
@@ -23,6 +24,7 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import kotlin.jvm.functions.Function0;
 
 /***
  * Created by mo on 2018/10/11
@@ -31,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
  **/
 public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,DataBindingPagedListAdapter.ViewHolder> {
 
-    private RetryCallback retryCallback;
+    private Function0 retryCallback;
     private PagingNetworkState pagingNetworkState;
 
 
@@ -43,12 +45,12 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
         super(config);
     }
 
-    public DataBindingPagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback,@Nullable RetryCallback retry ) {
+    public DataBindingPagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback,@Nullable Function0 retry ) {
        this(diffCallback);
        retryCallback = retry;
     }
 
-    public DataBindingPagedListAdapter(@NonNull AsyncDifferConfig<T> config,@Nullable RetryCallback retry) {
+    public DataBindingPagedListAdapter(@NonNull AsyncDifferConfig<T> config,@Nullable Function0 retry) {
         this(config);
         retryCallback = retry;
     }
@@ -62,9 +64,6 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 0) {
-            return null;
-        }
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), viewType, parent, false);
         return new ViewHolder(binding);
     }
@@ -74,7 +73,7 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
         if(getItemViewType(position) == R.layout.item_network_state){
             bindNetworkState((ItemNetworkStateBinding) holder.getBinding());
         }else {
-
+            onAttachViewHolder(holder,position);
         }
     }
 
@@ -85,8 +84,12 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
         }
         itemNetworkStateBinding.progressBar.setVisibility(networkStateToVisibility(pagingNetworkState.getStatus()== Status.RUNNING));
         itemNetworkStateBinding.retryButton.setVisibility(networkStateToVisibility(pagingNetworkState.getStatus() == Status.FAILED));
+        itemNetworkStateBinding.retryButton.setOnClickListener(v -> {
+            retryCallback.invoke();
+        });
         itemNetworkStateBinding.errorMsg.setVisibility(networkStateToVisibility(!Strings.isBlank(pagingNetworkState.getMsg())));
         itemNetworkStateBinding.errorMsg.setText(pagingNetworkState.getMsg());
+
     }
 
     private int networkStateToVisibility(boolean constraint){
@@ -115,6 +118,7 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
 
     @LayoutRes
     protected abstract int getItemLayout(int position, T item);
+    protected abstract void onAttachViewHolder(@NonNull ViewHolder holder, int position);
 
 //    public void replaceAll(List<T> data){
 //        if (data == null) {
@@ -148,6 +152,7 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
             super(binding.getRoot());
             mBinding = binding;
         }
+
 
         public ViewDataBinding getBinding() {
             return mBinding;
