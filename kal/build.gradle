@@ -66,4 +66,7 @@ dependencies {
 
     api "androidx.paging:paging-runtime:$paging_version"
 
+    implementation "androidx.lifecycle:lifecycle-runtime:$paging_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$paging_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$paging_version"
 }
