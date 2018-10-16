@@ -1,6 +1,5 @@
 package com.jarvanmo.kal.recyclerview.paged;
 
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import com.jarvanmo.kal.util.Strings;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
@@ -19,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
@@ -116,33 +113,61 @@ public abstract class DataBindingPagedListAdapter<T> extends PagedListAdapter<T,
         return super.getItemCount()+(hasExtraRow()?1:0);
     }
 
+
+    public void setPagingNetworkState(PagingNetworkState pagingNetworkState) {
+        PagingNetworkState previousState = this.pagingNetworkState;
+        boolean hadExtraRow = hasExtraRow();
+        this.pagingNetworkState = pagingNetworkState;
+        boolean hasExtraRow = hasExtraRow();
+        if(hadExtraRow != hasExtraRow){
+                  if(hadExtraRow){
+                      notifyItemRemoved(super.getItemCount());
+                  }else {
+                      notifyItemInserted(super.getItemCount());
+                  }
+
+        }else if (hasExtraRow && previousState != pagingNetworkState) {
+            notifyItemChanged(getItemCount() - 1);
+        }
+    }
+
     @LayoutRes
     protected abstract int getItemLayout(int position, T item);
     protected abstract void onAttachViewHolder(@NonNull ViewHolder holder, int position);
 
-//    public void replaceAll(List<T> data){
-//        if (data == null) {
-//            data = new ArrayList<>();
-//        }
-//        data.clear();
-//        addAll(data);
-//    }
-//
-//    public void addAll(List<T> dataToAppend){
-//        int oldSize= data.size();
-//        data.addAll(dataToAppend);
-//        notifyItemRangeChanged(oldSize,dataToAppend.size());
-//    }
-//
-//
-//    public void removeAt(int index){
-//        if (index < 0 || index >= data.size()) {
-//            return;
-//        }
-//
-//        notifyItemChanged(position);
-//    }
-//
+    public void replaceAll(List<T> newData){
+        List<T> data = getCurrentList();
+        if (data == null) {
+            return;
+        }
+        data.clear();
+        addAll(newData);
+    }
+
+    public void addAll(List<T> dataToAppend){
+        List<T> data = getCurrentList();
+        if (data == null) {
+            return;
+        }
+        int oldSize= data.size();
+        data.addAll(dataToAppend);
+        notifyItemRangeChanged(oldSize,dataToAppend.size());
+    }
+
+
+    public void removeAt(int index){
+        List<T> data = getCurrentList();
+        if (data == null) {
+            return;
+        }
+
+        if (index < 0 || index >= data.size()) {
+            return;
+        }
+
+        notifyItemChanged(index);
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
