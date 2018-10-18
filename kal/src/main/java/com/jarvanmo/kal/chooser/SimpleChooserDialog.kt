@@ -162,8 +162,8 @@ class SimpleChooserDialog : DialogFragment() {
     }
 
     private class ChooserDialogAdapter(var navigator: OnChooseListener?,val dialog:SimpleChooserDialog) : RecyclerViewAdapter<Any>() {
-        override fun onBind(holder: BaseViewHolder?, position: Int, item: Any?) {
-            val binding = holder?.binding
+        override fun onBind(holder: BaseViewHolder, position: Int, item: Any) {
+            val binding = holder.binding
             if (binding is ItemSimpleChooserBinding) {
                 binding.content.text = item .toString()
                 binding.content.setOnClickListener {
