@@ -83,12 +83,13 @@ fun Bitmap.save(context:Context?=null,des: File? =null,compressFormat: Bitmap.Co
         des
     }else{
 
-        val fileName = UUID.randomUUID().toString() + when (compressFormat) {
+        val fileName = UUID.randomUUID().toString()
+        File.createTempFile(fileName,when (compressFormat) {
             Bitmap.CompressFormat.WEBP -> ".webp"
             Bitmap.CompressFormat.PNG -> ".png"
             else -> ".jpeg"
-        }
-        File(context!!.cacheDir,fileName)
+        })
+//        File(context!!.cacheDir,fileName)
     }
     val bos = BufferedOutputStream(FileOutputStream(file))
     this.compress(compressFormat, quality, bos)

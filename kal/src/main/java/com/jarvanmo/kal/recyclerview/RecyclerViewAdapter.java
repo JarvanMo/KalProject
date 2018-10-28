@@ -29,9 +29,7 @@ public abstract class RecyclerViewAdapter<I> extends RecyclerView.Adapter<Recycl
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 0) {
-            return null;
-        }
+
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), viewType, parent, false);
         return new BaseViewHolder(binding);
     }
@@ -49,7 +47,7 @@ public abstract class RecyclerViewAdapter<I> extends RecyclerView.Adapter<Recycl
         holder.getBinding().executePendingBindings();
     }
 
-    public abstract void onBind(BaseViewHolder holder, int position, I item);
+    public abstract void onBind(BaseViewHolder holder, int position, @NonNull I item);
 
     @LayoutRes
     protected abstract int getItemLayout(int position, I item);

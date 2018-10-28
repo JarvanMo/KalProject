@@ -20,6 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url  "http://dl.bintray.com/piasy/maven" }
     }
 }
 
@@ -51,6 +52,8 @@ ext {
 
 
     glideVersion = '4.8.0'
+
+    bigImageViewer = "1.5.5"
 
     //leakcanaryVersion = '1.5.1'
 

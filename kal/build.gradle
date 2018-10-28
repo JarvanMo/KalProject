@@ -2,9 +2,10 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-kapt'
+
 
 apply plugin: 'com.github.dcendents.android-maven'
+
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -18,6 +19,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
 
     }
 
@@ -45,9 +47,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 
@@ -74,4 +77,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:$paging_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$paging_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$paging_version"
+
+    implementation "com.github.piasy:BigImageViewer:$rootProject.ext.bigImageViewer"
+// load with glide
+    implementation "com.github.piasy:GlideImageLoader:$rootProject.ext.bigImageViewer"
+
 }
