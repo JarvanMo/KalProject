@@ -79,7 +79,7 @@ fun Bitmap.save(context:Context?=null,des: File? =null,compressFormat: Bitmap.Co
     if (context == null&& des == null){
         throw IllegalArgumentException("context and des can't both be  NULL")
     }
-    val file = if(des==null){
+    val file = if(des!=null){
         des
     }else{
 
