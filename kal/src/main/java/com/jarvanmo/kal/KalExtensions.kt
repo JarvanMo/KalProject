@@ -81,17 +81,16 @@ fun Bitmap.save(context:Context?=null,des: File? =null,compressFormat: Bitmap.Co
     if (context == null&& des == null){
         throw IllegalArgumentException("context and des can't both be  NULL")
     }
-    val file = if(des==null){
+    val file = if(des!=null){
         des
     }else{
 
-        val fileName = UUID.randomUUID().toString()
-        File.createTempFile(fileName,when (compressFormat) {
+        val fileName = UUID.randomUUID().toString() + when (compressFormat) {
             Bitmap.CompressFormat.WEBP -> ".webp"
             Bitmap.CompressFormat.PNG -> ".png"
             else -> ".jpeg"
-        })
-//        File(context!!.cacheDir,fileName)
+        }
+        File(context!!.cacheDir,fileName)
     }
     val bos = BufferedOutputStream(FileOutputStream(file))
     this.compress(compressFormat, quality, bos)
