@@ -1,6 +1,8 @@
 package com.jarvanmo.kal
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.view.View
 import com.jarvanmo.kal.util.MToast
@@ -99,7 +101,15 @@ fun Bitmap.save(context:Context?=null,des: File? =null,compressFormat: Bitmap.Co
     return file
 }
 
+//context
+fun <T:Any> Context.startActivity(clazz: Class<T>){
+    this.startActivity(Intent(this,clazz))
+}
 
+//activity
+fun <T:Any> Activity.startActivityForResult(requestCode:Int,clazz: Class<T>){
+    this.startActivityForResult(Intent(this,clazz),requestCode)
+}
 
 
 
