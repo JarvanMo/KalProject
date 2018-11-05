@@ -32,7 +32,7 @@ class SimpleChooserDialog : DialogFragment() {
         private  val simpleChooser = "simpleChooser"
 
         @JvmStatic
-        fun newInstanceOfParcelables(items: ArrayList<Parcelable>): SimpleChooserDialog {
+        fun <T:Parcelable> newInstanceOfParcelables(items: ArrayList<T>): SimpleChooserDialog {
 
             val args = Bundle()
             args.putBoolean(keyIsString, false)
@@ -110,7 +110,7 @@ class SimpleChooserDialog : DialogFragment() {
         }
 
         @JvmStatic
-        fun showParcelables(fragmentManager: FragmentManager, items: ArrayList<Parcelable>, chooseListener: OnChooseListener):SimpleChooserDialog{
+        fun <T:Parcelable> showParcelables(fragmentManager: FragmentManager, items: ArrayList<T>, chooseListener: OnChooseListener):SimpleChooserDialog{
             val dialog = SimpleChooserDialog.newInstanceOfParcelables(items)
             dialog.setOnChooseListener(chooseListener)
             dialog.show(fragmentManager,simpleChooser)
