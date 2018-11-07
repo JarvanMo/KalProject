@@ -140,6 +140,11 @@ abstract class DataBindingPagedListAdapter<T> : PagedListAdapter<T, DataBindingP
         notifyItemChanged(index)
     }
 
+    fun remove(item:T){
+        val data = currentList ?: return
+
+        removeAt(data.indexOf(item))
+    }
 
     class ViewHolder internal constructor(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
