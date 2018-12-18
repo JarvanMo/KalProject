@@ -11,8 +11,7 @@ import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_IMMERSIVE
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.github.piasy.biv.BigImageViewer
-import com.github.piasy.biv.loader.glide.GlideImageLoader
+
 
 import com.jarvanmo.kal.R
 import com.jarvanmo.kal.databinding.ItemImageViewerBinding
@@ -21,7 +20,8 @@ import okhttp3.OkHttpClient
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.bumptech.glide.annotation.GlideModule
+import com.squareup.picasso.Picasso
 
 
 class ImageViewerActivity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class ImageViewerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BigImageViewer.initialize(GlideImageLoader.with(applicationContext, OkHttpClient()))
+//        BigImageViewer.initialize(GlideImageLoader.with(applicationContext, OkHttpClient()))
         setContentView(R.layout.activity_image_viewer)
         val root = findViewById<View>(R.id.imageViewerRoot)
         indicatorsWrapper = findViewById(R.id.indicatorsWrapper)
@@ -64,7 +64,7 @@ class ImageViewerActivity : AppCompatActivity() {
         recycler.layoutManager = layoutManager
         val adapter = ImageViewerAdapter()
         val uris = intent.getParcelableArrayExtra(KEY_IMAGES).map { it as Uri }
-        BigImageViewer.prefetch(*uris.toTypedArray())
+
 
         val currentIndex = intent.getIntExtra(KEY_CURRENT_INDEX, 0)
         indicatorsWrapper.removeAllViews()
@@ -111,8 +111,9 @@ class ImageViewerActivity : AppCompatActivity() {
         override fun onBind(holder: BaseViewHolder, position: Int, item: Uri) {
             val binding = holder.binding as ItemImageViewerBinding
 //            binding.image.setProgressIndicator(ProgressPieIndicator())
-            binding.image.showImage(item)
-            binding.image.setOnClickListener { v ->
+            Picasso.get().load(item).into(binding.image)
+//            binding.image.showImage(item)
+            binding.root.setOnClickListener { v ->
                 val context = v.context
                 if (context is Activity) {
                     context.finish()

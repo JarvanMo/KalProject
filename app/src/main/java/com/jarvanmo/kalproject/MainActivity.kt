@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val list = listOf<String>(
-                "http://f.hiphotos.baidu.com/image/h%3D300/sign=0eaa7d0c75f0f736c7fe4a013a54b382/f603918fa0ec08faf4f358d454ee3d6d54fbdad6.jpg",
+                "http://c.hiphotos.baidu.com/image/h%3D300/sign=a9896c8e9f45d688bc02b4a494c37dab/4b90f603738da97753662396bd51f8198718e3c6.jpg",
                 "http://d.hiphotos.baidu.com/image/h%3D300/sign=1c0fb4228835e5dd8f2ca3df46c7a7f5/c83d70cf3bc79f3dab11b040b7a1cd11738b29c9.jpg",
-                "http://e.hiphotos.baidu.com/image/h%3D300/sign=ff937ebff1039245beb5e70fb795a4a8/b8014a90f603738d952a8450be1bb051f819ec64.jpg"
+                "http://f.hiphotos.baidu.com/image/h%3D300/sign=0072445ad839b60052ce09b7d9513526/f2deb48f8c5494eee5a348a020f5e0fe98257e81.jpg"
         )
         ImageViewerActivity.startImageViewerWithStrings(this,list)
 //        MToast.init(applicationContext)

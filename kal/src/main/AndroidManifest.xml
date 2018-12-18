@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jarvanmo.kal">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application>
         <activity android:name=".imageviewer.ImageViewerActivity"
 

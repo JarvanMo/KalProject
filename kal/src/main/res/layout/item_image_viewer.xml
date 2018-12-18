@@ -2,13 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <com.github.piasy.biv.view.BigImageView
-        android:id="@+id/image"
-        app:optimizeDisplay="true"
-        app:initScaleType="fitCenter"
+    <LinearLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:contentDescription="@null"
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true" />
+
+    </LinearLayout>
 
 
 </layout>
