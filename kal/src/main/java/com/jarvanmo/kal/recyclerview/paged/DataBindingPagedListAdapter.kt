@@ -137,7 +137,7 @@ abstract class DataBindingPagedListAdapter<T> : PagedListAdapter<T, DataBindingP
             return
         }
 
-        notifyItemChanged(index)
+        notifyItemRemoved(index)
     }
 
     fun remove(item:T){
