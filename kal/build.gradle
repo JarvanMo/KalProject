@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -52,7 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
 
     api 'com.google.android.material:material:1.0.0'
     api "androidx.appcompat:appcompat:$rootProject.ext.androidXVersion"
@@ -72,7 +72,7 @@ dependencies {
 
     def paging_version = "2.0.0"
 
-    api "androidx.paging:paging-runtime:$paging_version"
+    api 'androidx.paging:paging-runtime:2.1.0'
 
     implementation "androidx.lifecycle:lifecycle-runtime:$paging_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$paging_version"
